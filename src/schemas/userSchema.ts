@@ -6,9 +6,7 @@ export const UserSchema = z.object({
     password: z.string().min(8).max(20),
 });
 
-export const CreateUserSchema = z.object({
+export const AuthUserSchema = z.object({
     username: z.string().min(3).max(15),
     password: z.string().min(8).max(20),
 });
-
-// module.exports = { UserSchema, CreateUserSchema };
