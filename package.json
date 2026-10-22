@@ -5,8 +5,8 @@
     "main": "index.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "migrate": "dotenv -e .env -- node-pg-migrate up -m ./src/db/migrations",
-        "migrate:down": "dotenv -e .env -- node-pg-migrate down -m ./src/db/migrations"
+        "migrate": "dotenv -e .env -- node-pg-migrate up -m /migrations",
+        "migrate:down": "dotenv -e .env -- node-pg-migrate down -m /migrations"
     },
     "keywords": [],
     "type": "module",
