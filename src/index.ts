@@ -10,7 +10,7 @@ const PORT = config.port;
 app.use(express.json());
 
 app.use("/api/v1/auth", authRouter);
-app.use("/api/v1/", workspaceRouter);
+app.use("/api/v1", workspaceRouter);
 
 app.listen(PORT, () => {
     console.log("Server running on port:", PORT);

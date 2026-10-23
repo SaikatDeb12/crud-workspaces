@@ -7,3 +7,14 @@ export async function fetchAllWorkspaces(userId: number) {
     );
     return workspacesList.rows;
 }
+
+export async function createNewWorkspace(
+    workspaceName: string,
+    userId: number,
+) {
+    const workspace = await pool.query(
+        "insert into workspaces (user_id, name) values ($2, $1) returning (id)",
+        [workspaceName, userId],
+    );
+    return workspace.rows[0];
+}
