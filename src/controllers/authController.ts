@@ -1,12 +1,9 @@
+import { config } from "../configs.js";
 import bcrypt from "bcryptjs";
 import type { Response, Request } from "express";
 import { AuthUserSchema } from "../schemas/userSchema.js";
-import { createUser, findUserByUsername } from "../models/userModel.js";
 import jwt from "jsonwebtoken";
-import dotenv from "dotenv";
-dotenv.config();
-
-const secretKey = process.env.SECRET_KEY;
+import { createUser, findUserByUsername } from "../queries/userQueries.js";
 
 export async function registerUser(request: Request, response: Response) {
     try {
@@ -70,10 +67,10 @@ export async function loginUser(request: Request, response: Response) {
         }
         // console.log("isvalid : ", isValidPassword);
 
-        if (!secretKey) {
-            throw new Error("jwt not provided");
-        }
-        const token = jwt.sign({ userId: user.id }, secretKey, {
+        const payload = {
+            userId: user.id,
+        };
+        const token = jwt.sign(payload, config.jwtSecret, {
             expiresIn: "1d",
             algorithm: "HS256",
         });

@@ -1,15 +1,16 @@
 import express from "express";
-import dotenv from "dotenv";
 import { authRouter } from "./routes/authRoutes.js";
-dotenv.config();
+import { workspaceRouter } from "./routes/workspaceRoutes.js";
+import { config } from "./configs.js";
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = config.port;
 
 // Parse incoming JSON requests
 app.use(express.json());
 
-app.use("/api/auth", authRouter);
+app.use("/api/v1/auth", authRouter);
+app.use("/api/v1/", workspaceRouter);
 
 app.listen(PORT, () => {
     console.log("Server running on port:", PORT);
