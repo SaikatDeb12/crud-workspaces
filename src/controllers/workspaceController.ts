@@ -1,6 +1,7 @@
 import type { Request, Response } from "express";
 import {
     createNewWorkspace,
+    deleteWorkspace,
     fetchAllWorkspaces,
 } from "../queries/workspaceQueries.js";
 import { CreateWorkspaceSchema } from "../schemas/workspaceSchema.js";
@@ -17,12 +18,10 @@ export async function displayAllWorkspaces(
             });
         }
         const workspaces = await fetchAllWorkspaces(userId);
-        if (workspaces.length == 0) {
-            return response.status(200).json({
-                workspaces: workspaces,
-                total: workspaces.length,
-            });
-        }
+        return response.status(200).json({
+            workspaces: workspaces,
+            total: workspaces.length,
+        });
     } catch (error) {
         console.log(error);
         return response.status(500).json({
@@ -59,6 +58,40 @@ export async function createWorkspace(request: Request, response: Response) {
         console.log(error);
         return response.status(500).json({
             message: "failed to create workspace",
+        });
+    }
+}
+
+interface WorkspaceParams {
+    workspaceId: string;
+}
+
+export async function deleteWorkspaceWithId(
+    request: Request<WorkspaceParams>,
+    response: Response,
+) {
+    try {
+        const { workspaceId } = request.params;
+        const userId = request.userId;
+        if (!userId) {
+            return response.status(401).json({
+                message: "unauthorized",
+            });
+        }
+        const isWorkspaceDelete = await deleteWorkspace(workspaceId, userId);
+        if (!isWorkspaceDelete) {
+            return response.status(404).json({
+                message: `workspace with id : ${workspaceId} not found`,
+            });
+        }
+
+        return response.status(200).json({
+            message: `workspace with id : ${workspaceId} deleted successfully`,
+        });
+    } catch (error) {
+        console.log(error);
+        return response.status(500).json({
+            message: "failed to delete workspace",
         });
     }
 }
