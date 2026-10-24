@@ -8,6 +8,6 @@ import {
 
 export const workspaceRouter = Router();
 workspaceRouter.use(authMiddleware);
-workspaceRouter.get("/workspaces", displayAllWorkspaces);
-workspaceRouter.post("/workspace", createWorkspace);
-workspaceRouter.delete("/workspace/:workspaceId", deleteWorkspaceWithId);
+workspaceRouter.get("/", displayAllWorkspaces);
+workspaceRouter.post("/", createWorkspace);
+workspaceRouter.delete("/:workspaceId", deleteWorkspaceWithId);

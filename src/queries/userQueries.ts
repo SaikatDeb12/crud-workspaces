@@ -2,7 +2,7 @@ import { pool } from "../db.js";
 
 export async function findUserByUsername(username: string) {
     const result = await pool.query(
-        "select username, id, password FROM users WHERE username = $1",
+        "select username, id, password FROM users WHERE username = $1 and archived_at is null",
         [username],
     );
     return result.rows[0] || null;

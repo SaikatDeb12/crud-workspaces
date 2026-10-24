@@ -57,7 +57,6 @@ export async function loginUser(request: Request, response: Response) {
                 message: "user doesn't exists",
             });
         }
-        // console.log("user: ", user);
 
         const isValidPassword = await bcrypt.compare(password, user.password);
         if (!isValidPassword) {

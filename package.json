@@ -6,8 +6,8 @@
     "scripts": {
         "build": "tsc",
         "start": "node dist/index.js",
-        "migrate": "dotenv -e .env -- node-pg-migrate up -m /migrations",
-        "migrate:down": "dotenv -e .env -- node-pg-migrate down -m /migrations"
+        "migrate": "dotenv run -f .env -- node-pg-migrate up -m ./src/migrations",
+        "migrate:down": "dotenv run -f .env -- node-pg-migrate down -m ./src/migrations"
     },
     "keywords": [],
     "type": "module",

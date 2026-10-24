@@ -14,7 +14,7 @@ export async function displayAllWorkspaces(
         const userId = request.userId;
         if (!userId) {
             return response.status(401).json({
-                message: "unauthorised access",
+                message: "unauthorized access",
             });
         }
         const workspaces = await fetchAllWorkspaces(userId);
