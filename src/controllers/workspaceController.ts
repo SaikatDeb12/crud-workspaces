@@ -50,6 +50,12 @@ export async function createWorkspace(request: Request, response: Response) {
         }
 
         const newWorkspace = await createNewWorkspace(name, userId);
+        if (!newWorkspace) {
+            return response.status(404).json({
+                message: "workspace not created, user not found",
+            });
+        }
+
         return response.status(201).json({
             message: "workspace created successfully",
             workspace: newWorkspace,

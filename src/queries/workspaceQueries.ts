@@ -24,7 +24,7 @@ export async function createNewWorkspace(
     // "INSERT INTO workspaces (user_id, name) VALUES ($2, $1) RETURNING (id)",
     //     [workspaceName, userId],
     // );
-    return newWorkspace.rows[0];
+    return newWorkspace.rows[0] ?? null;
 }
 
 export async function deleteWorkspace(
